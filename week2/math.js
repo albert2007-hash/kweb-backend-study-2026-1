@@ -2,18 +2,24 @@ const express = require("express");
 
 const router = express.Router();
 
-router.get('/sum', (req, res) => {
-    const a = Number(req.query.a);
-    const b = Number(req.query.b);
-
-    res.send(`${a} + ${b} 는 ${Number(a) + Number(b)} 입니다!`);
+router.get('/', (req, res) => {
+    res.render('math');
 });
 
-router.get('/sub', (req, res) => {
-    const a = Number(req.query.a);
-    const b = Number(req.query.b);
+router.post('/calculate', (req, res) => {
+    const a = Number(req.body.a);
+    const b = Number(req.body.b);
+    const op = req.body.op;
 
-    res.send(`${a} - ${b} 는 ${Number(a) - Number(b)} 입니다!`);
+    let result;
+
+    if (op === 'sum') {
+        result = `${a} + ${b} = ${a + b}`;
+    } else if (op === 'sub') {
+        result = `${a} - ${b} = ${a - b}`;
+    }
+
+    res.render('math', { result });
 });
 
 module.exports = router;

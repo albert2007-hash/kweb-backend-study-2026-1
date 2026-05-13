@@ -2,6 +2,11 @@ const express = require("express");
 
 const app = express();
 
+app.set('views', `${__dirname}/views`);
+app.set('view engine', 'pug');
+
+app.use(express.urlencoded({ extended: true }));
+
 app.get("/user/:id", (req, res, next) => {
     const id = req.params.id;
     if(id !== "1") res.send('You are not welcomed!');
